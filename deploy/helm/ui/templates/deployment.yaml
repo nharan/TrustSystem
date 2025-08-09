@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trustsystem-ui
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels: { app: trustsystem-ui }
+  template:
+    metadata:
+      labels: { app: trustsystem-ui }
+    spec:
+      containers:
+        - name: ui
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.port }}
+          env:
+            - name: NEXT_PUBLIC_API_BASE
+              value: "{{ .Values.env.NEXT_PUBLIC_API_BASE }}"
+
+

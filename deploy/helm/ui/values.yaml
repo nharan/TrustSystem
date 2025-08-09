@@ -1,0 +1,14 @@
+image:
+  repository: trustsystem-ui
+  tag: dev
+  pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+env:
+  NEXT_PUBLIC_API_BASE: http://trustsystem-api:8080
+
+service:
+  port: 3000
+
+

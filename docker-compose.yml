@@ -1,0 +1,40 @@
+version: "3.9"
+services:
+  api:
+    build:
+      context: .
+      dockerfile: ./api/Dockerfile
+    image: trustsystem-api:dev
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - ATPROTO_APPVIEW_URL=${ATPROTO_APPVIEW_URL}
+      - GRAPH_HOST=${GRAPH_HOST}
+      - OPENSEARCH_URL=${OPENSEARCH_URL}
+      - KAFKA_BROKERS=${KAFKA_BROKERS}
+      - RUST_LOG=info
+    ports:
+      - "8080:8080"
+    depends_on:
+      - workers
+  workers:
+    build:
+      context: .
+      dockerfile: ./workers/Dockerfile
+    image: trustsystem-workers:dev
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - GRAPH_HOST=${GRAPH_HOST}
+      - OPENSEARCH_URL=${OPENSEARCH_URL}
+      - KAFKA_BROKERS=${KAFKA_BROKERS}
+      - RUST_LOG=info
+  ui:
+    build: ./ui
+    image: trustsystem-ui:dev
+    environment:
+      - NEXT_PUBLIC_API_BASE=http://localhost:8080
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+
+

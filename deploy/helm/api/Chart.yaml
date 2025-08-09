@@ -1,0 +1,6 @@
+apiVersion: v2
+name: trustsystem-api
+version: 0.1.0
+type: application
+
+

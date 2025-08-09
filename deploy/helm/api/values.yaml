@@ -1,0 +1,18 @@
+image:
+  repository: trustsystem-api
+  tag: dev
+  pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+env:
+  GEMINI_API_KEY: ""
+  ATPROTO_APPVIEW_URL: https://bsky.social
+  GRAPH_HOST: http://janusgraph:8182
+  OPENSEARCH_URL: http://opensearch:9200
+  KAFKA_BROKERS: ""
+
+service:
+  port: 8080
+
+

@@ -1,0 +1,12 @@
+## Workspace for TrustSystem (API + Workers)
+
+[workspace]
+members = [
+    "core",
+    "api",
+    "workers",
+]
+resolver = "2"
+
+
+

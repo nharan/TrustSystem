@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trustsystem-api
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels: { app: trustsystem-api }
+  template:
+    metadata:
+      labels: { app: trustsystem-api }
+    spec:
+      containers:
+        - name: api
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.port }}
+          env:
+            - name: GEMINI_API_KEY
+              value: "{{ .Values.env.GEMINI_API_KEY }}"
+            - name: ATPROTO_APPVIEW_URL
+              value: "{{ .Values.env.ATPROTO_APPVIEW_URL }}"
+            - name: GRAPH_HOST
+              value: "{{ .Values.env.GRAPH_HOST }}"
+            - name: OPENSEARCH_URL
+              value: "{{ .Values.env.OPENSEARCH_URL }}"
+            - name: KAFKA_BROKERS
+              value: "{{ .Values.env.KAFKA_BROKERS }}"
+
+
